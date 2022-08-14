@@ -12,12 +12,14 @@
         <tr>
             <td>
                 <h3>Contents</h3>
-
+                <div data-th-each="c : ${cart}">
+                    <span data-th-text="${c}"></span>
+                </div>
             </td>
             <td>
                 <form action="/cart" method="POST">
                     <label for="item">Item to add:</label>
-                    <input type="text" name="item" placeholder="Item to hold" required>
+                    <input type="text" name="item" placeholder="Item to add" required>
                     <input type="submit" value="ADD TO CART">
                 </form>
             </td>
