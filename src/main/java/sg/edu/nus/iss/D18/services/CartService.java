@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CartService {
-    
+
     public List<String> deserialize(String s) {
+        // Split a string into respective items and add individual items into list
         String[] items = s.split(",");
         List<String> contents = new LinkedList<>();
         for (String i : items) {
@@ -17,6 +18,7 @@ public class CartService {
         return contents;
     }
 
+    // Join items in the list with a "," using String.join() method
     public String serialize(List<String> c) {
         return String.join(",", c);
     }

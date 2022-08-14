@@ -23,26 +23,36 @@ public class CartController {
     
     @PostMapping
     public String postCart(@RequestBody MultiValueMap<String,String> form, Model model) {
+
+        // Retrieve name from the form 
         String name = form.getFirst("name");
         if (isNull(name)) {
             name = "anonymous";
         }
 
+        // Retrieve contents from hidden forms
         String contents = form.getFirst("contents");
         List<String> cart = new LinkedList<>();
         if (!isNull(contents)) {
+            // Breakdown into individual items and sort them into a list
             cart = cartSvc.deserialize(contents);
         }
 
+        // Retrieve item to be added to cart, add it to cart
         String item = form.getFirst("item");
         if (!isNull(item)) {
             cart.add(item);
         }
         
+        // name to be displayed on webpage
         model.addAttribute("displayName", name.toUpperCase());
+        // contents in hidden form fields
         model.addAttribute("contents", cartSvc.serialize(cart));
+        // Hold list of items in cart, to be displayed on webpage
         model.addAttribute("cart", cart);
+        // Boolean to check if cart is empty (Conditional to show specific contents)
         model.addAttribute("empty", cart.isEmpty());
+        // name to be placed in hidden form fields
         model.addAttribute("name", name);
         return "cart";
     }
